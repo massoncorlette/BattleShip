@@ -1,7 +1,7 @@
 // ship, gameboard, player objects go here (along with possibly other objects)
 
 
-const Ship = function(length,direction,coordinates) {
+const Ship = function(shipType,length,direction,coordinates) {
   const hitDetection = 0;
 
   function hit(damage) {
@@ -14,7 +14,7 @@ const Ship = function(length,direction,coordinates) {
 
   function isSunk() {
     if (hitDetection >= length) {
-      return true;
+      return (shipType + " has been Destroyed.");
     }
     return false;
   }
@@ -28,30 +28,45 @@ const Ship = function(length,direction,coordinates) {
 }
 
 
-const Gameboard = function() {
+const Gameboard = function(computer) {
 
-  //keep track of missed attacks ?
-  const board = [10][10]; // [x][y]
+  const board = []; // [x][y] //keep track of missed attacks, storing attacks here
 
-  // storing ship objects
-  // depending on ships direction, hits will be on x or y axis
-  const placedShips = [];
+  const placedShips = [];   // depending on ships direction, hits will be on x or y axis
 
   function placeShip(length,direction,coordinates) {
-    const newShip = Ship(length,direction,coordinates);
 
-    
+    if (arguments.length < 3) {
+      throw new Error('need all ship properties');
+    }
+
+    const newShip = Ship(length,direction,coordinates);
+    placedShips.push(newShip);
   }
 
-  function receiveAttack(coordinates,ship) {
+  function receiveAttack(attackCoordinates,ship) {
 
+    if (arguments.length < 2) {
+      throw new Error('missing ship details');
+    }
+
+  }
+  return {
+    placeShip:placeShip,
+    receiveAttack:receiveAttack,
+    board:board,
+    placedShips:placedShips,
   }
 
 }
 
 
-const Player = function(computer) {
+export const Player = function(computer) {
   const playersBoard = Gameboard();
+
+  return {
+    playersBoard:playersBoard,
+  }
 
 }
 

@@ -12,6 +12,21 @@ to change direction.
 
 
 
+11/10 Psuedo (game.js)
+
+***We can use an adjacency list for computer
+attacks (attacking surrounding coordinates from 
+potential moves from given vertice)***
+
+intializingApp() will use DOM function to render
+
+function to start game calling shipPlacement()
+
+shipPlacement() to place all ships (use maybe random/ or manual coordinates for now)
+		- Use a decoupled Pure function so we can 
+			test ships are being placed right
+
+
 
 - Try to follow the conventional Git command standards
 
