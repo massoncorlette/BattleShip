@@ -1,2 +1,35 @@
 
 
+This projects instructions provides pretty minimal directions on how to go about 
+making this. I have more freedom on this than any previous project, here is 
+some things I want to make sure of:
+
+- Make sure to use decoupled pure functions for Test Driven Development, this would
+also result in following SOLID principles
+
+- Pay attention to how I represent the gameboard, since I want the ships to be able 
+to change direction. 
+
+
+
+
+- Try to follow the conventional Git command standards
+
+1. Type: Purpose of the commit
+	- feat: New feature
+	- fix: Bug fix
+	- docs: Documentation only
+	- style: Code style (no logic changes)
+	- refactor: Code changes without new features or bug fixes
+	- perf: Performance improvements
+	- test: Tests only
+	- chore: Build or tooling updates
+2. Scope: (Optional) What part of the project is affected.
+3. Description: Brief summary of the change.
+4. Body and Footer: (Optional) Additional details or metadata (e.g., BREAKING CHANGE).
+
+Example
+
+```
+feat(auth): add OAuth2 login support
+```
