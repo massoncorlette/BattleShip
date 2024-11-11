@@ -22,12 +22,12 @@ function startGame() {
 }
 
 
-
 function shipPlacements(commodore) {
   const direction = "X";
   const coordinates = [3,4];
+  const shipType = 'BattleShip';
 
-  commodore.playersBoard.placeShip(4,direction,coordinates);
+  commodore.playersBoard.placeShip(shipType,4,direction,coordinates);
 
   console.log(commodore);
   return commodore;

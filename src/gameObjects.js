@@ -22,6 +22,7 @@ const Ship = function(shipType,length,direction,coordinates) {
   return {
     hit:hit,
     isSunk:isSunk,
+    shipType:shipType,
     direction:direction,
     coordinates:coordinates,
   }
@@ -34,17 +35,17 @@ const Gameboard = function(computer) {
 
   const placedShips = [];   // depending on ships direction, hits will be on x or y axis
 
-  function placeShip(length,direction,coordinates) {
+  function placeShip(shipType,length,direction,coordinates) {
 
     if (arguments.length < 3) {
       throw new Error('need all ship properties');
     }
 
-    const newShip = Ship(length,direction,coordinates);
+    const newShip = Ship(shipType,length,direction,coordinates);
     placedShips.push(newShip);
   }
 
-  function receiveAttack(attackCoordinates,ship) {
+  function receiveAttack(shipType, attackCoordinates) {
 
     if (arguments.length < 2) {
       throw new Error('missing ship details');
