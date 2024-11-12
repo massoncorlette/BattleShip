@@ -23,6 +23,7 @@ const Ship = function(shipType,length,direction,coordinates) {
     hit:hit,
     isSunk:isSunk,
     shipType:shipType,
+    length:length,
     direction:direction,
     coordinates:coordinates,
   }
