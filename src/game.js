@@ -2,7 +2,7 @@ import { Player } from "./gameObjects";
 
 // game flow logic here
 
-let commodoreOne = null;
+export let commodoreOne = null;
 let commodoreTwo = null; // two being human or computer
 
 
@@ -13,28 +13,33 @@ export function initializeApp() {
     startGame();
   }
 
-function startGame() {
+export async function startGame() {
   commodoreOne = new Player();
-  commodoreTwo = new Player();
 
-  shipPlacements(commodoreOne);
-  shipPlacements(commodoreTwo);
+  shipPlacements(commodoreOne,"BattleShip",4,"X",[3,4]);
 }
 
 
-function shipPlacements(commodore) {
-  const direction = "X";
-  const coordinates = [3,4];
-  const shipType = 'BattleShip';
+function shipPlacements(commodore,shipType,length,direction,coordinates) {
 
-  commodore.playersBoard.placeShip(shipType,4,direction,coordinates);
+  commodore.playersBoard.placeShip(shipType,length,direction,coordinates);
 
   console.log(commodore);
   return commodore;
 }
 
 
-function testShipPlacement() {
+//Pure Function decoupled away from shipPlacements()
+export function testShipPlacement(commodore) {
 
-
+    if (commodore.direction === "X") {
+      if (commodore.coordinates[0][0] + commodore.length > 8) {
+        return false;
+      }
+    } else if (commodore.direction === "Y") {
+      if (commodore.coordinates[0] + commodore.length > 8) {
+        return false;
+      }
+    }
+    return true;
 }
