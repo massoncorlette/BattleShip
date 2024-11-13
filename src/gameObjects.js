@@ -34,7 +34,11 @@ const Gameboard = function(computer) {
 
   const board = []; // [x][y] //keep track of missed attacks, storing attacks here
 
-  const placedShips = [];   // depending on ships direction, hits will be on x or y axis
+  const placedShips = [
+    [
+      [3,4], [4,4], [5,4]
+    ]
+  ];   // adjacency list of placed ships
 
   function placeShip(shipType,length,direction,coordinates) {
 

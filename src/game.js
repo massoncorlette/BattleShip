@@ -16,11 +16,19 @@ export function initializeApp() {
 export async function startGame() {
   commodoreOne = new Player();
 
-  shipPlacements(commodoreOne,"BattleShip",4,"X",[3,5]);
+  shipPlacements(commodoreOne,"BattleShip",4,"X");
 }
 
 
-function shipPlacements(commodore,shipType,length,direction,coordinates) {
+function shipPlacements(commodore,shipType,length,direction) {
+
+  function generateCoordinates() {
+    let coordinates = [];
+    coordinates[0].push(Math.floor(Math.random() * 8) + 1);
+    coordinates[1].push(Math.floor(Math.random() * 8) + 1);
+
+    return coordinates;
+  }
 
   commodore.playersBoard.placeShip(shipType,length,direction,coordinates);
 
@@ -28,6 +36,22 @@ function shipPlacements(commodore,shipType,length,direction,coordinates) {
   return commodore.playersBoard.placedShips;
 }
 
+function placeShip(length,direction,coordinates) {
+
+
+
+}
+
+function checkForPlacedShips(playersPlacedShips, coordinates) {
+    for (let i = 0; i < playersPlacedShips[i].length; i++) {
+        for (let j = 0; j < playersPlacedShips[i][j].length; j++) {
+            if (playersPlacedShips[i][j][0] === coordinates[0] && playersPlacedShips[i][j][1] === coordinates[1]) {
+                return true;  
+            }
+        }
+    }
+  return false;  
+}
 
 //Pure Function decoupled away from shipPlacements()
 export function testShipPlacement(commodore) {

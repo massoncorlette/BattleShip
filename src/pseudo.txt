@@ -12,20 +12,29 @@ to change direction.
 
 
 
-11/10 Psuedo (game.js)
+Psuedo (game.js)
 
 ***We can use an adjacency list for computer
 attacks (attacking surrounding coordinates from 
 potential moves from given vertice)***
 
 intializingApp() will use DOM function to render
+--
+** I can TDD all these functions in order **
+1. startGame(computer/human) calling shipPlacements()
 
-function to start game calling shipPlacement()
+2. shipPlacements() used to generate randomly/get all coordinates for all ships, calling
+placeShip(), using generateRandom until coordinate is valid to place
 
-shipPlacement() to place all ships (use maybe random/ or manual coordinates for now)
-		- Use a decoupled Pure function so we can 
-			test ships are being placed right
+	(2b. generateRandom coordinates between 0-8 for both X and Y)
 
+3. placeShip() will use a given ships properties to check along X or Y axis, calling
+checkForPlacedShips() upon every coorindate
+
+4. checkForPlacedShips() will check to make sure coordinates for ship is valid,
+checking ship adjacency list for already placed ships (first vertex given coordinate)
+
+5. testShipPlacement() used for TDD and check out of bounds
 
 
 - Try to follow the conventional Git command standards
