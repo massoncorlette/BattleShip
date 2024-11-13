@@ -36,6 +36,16 @@ checking ship adjacency list for already placed ships (first vertex given coordi
 
 5. testShipPlacement() used for TDD and check out of bounds
 
+Pseudo in plain english:
+
+upon starting the game, we will pass all the properties that will come from DOM into 
+function to ultimately generate and check if coordinates for ship placement is valid.
+Until the coordinates are not in the way of other ships (based upon the given coordinates
+length and direction) and checking inside players placedShips list, we can check for true
+return from checkingShipPlacement.
+
+*** We may have to rework more logic than I think for drag and drop. ***
+
 
 - Try to follow the conventional Git command standards
 

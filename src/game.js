@@ -29,17 +29,33 @@ function shipPlacements(commodore,shipType,length,direction) {
 
     return coordinates;
   }
+  let generatedCoordinates = generateCoordinates();
 
-  commodore.playersBoard.placeShip(shipType,length,direction,coordinates);
+  while (checkShipPlacement(commodore.placedShips,length,direction,generatedCoordinates) === false) {
+    generatedCoordinates = generateCoordinates();
+  }
+
+  // the while statement returning final returned valid coordinates
+  commodore.playersBoard.placeShip(shipType,length,direction,generatedCoordinates);
 
   console.log(commodore.playersBoard);
   return commodore.playersBoard.placedShips;
 }
 
-function placeShip(length,direction,coordinates) {
+function checkShipPlacement(playersShips,length,direction,coordinates) {
 
-
-
+  for (let i=0;i<length;i++) {
+    if (direction === "X") {
+      if (checkForPlacedShips(playersShips,(coordinates[0]) + i) === true) {
+        return false;
+      }
+    } else if (direction === "Y") {
+      if (checkForPlacedShips(playersShips,(coordinates[1]) + i) === true) {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 function checkForPlacedShips(playersPlacedShips, coordinates) {
