@@ -52,20 +52,28 @@ export function shipPlacements(commodore,shipType,length,direction) {
 
 function checkShipPlacement(playersShips,length,direction,coordinates) {
 
+    let testedCoordinates = [];
+    testedCoordinates.push(coordinates[0]);
+    testedCoordinates.push(coordinates[1]);
+
+    // check for already placed Ships
     if (direction == "X") {
       for (let i=0;i<length;i++) {
-        coordinates[0] = coordinates[0] + 1;
-        if (checkForPlacedShips(playersShips,coordinates) === true) {
+        if (checkForPlacedShips(playersShips,testedCoordinates) === true) {
           return false;
         }
       }
     } else if (direction == "Y") {
-      coordinates[1] = coordinates[1] + 1;
+      testedCoordinates[1] = testedCoordinates[1] + 1;
       for (let i=0;i<length;i++) {
-        if (checkForPlacedShips(playersShips,coordinates)=== true) {
+        if (checkForPlacedShips(playersShips,testedCoordinates)=== true) {
           return false;
         }
       }
+    }
+    // check for ship staying in bounds
+    if (checkForOutOfBounds(testedCoordinates,length,direction) == false) {
+      return false;
     }
     return true;
   }
@@ -73,25 +81,24 @@ function checkShipPlacement(playersShips,length,direction,coordinates) {
 
 function checkForPlacedShips(playersPlacedShips, coordinates) {
     for (let i = 0; i < playersPlacedShips.length; i++) {
-        for (let j = 0; j < playersPlacedShips[i].length; j++) {
-          if (playersPlacedShips[i][j][0] === coordinates[0] && playersPlacedShips[i][j][1] === coordinates[1]) {
-              return true;  
-          }
+      for (let j = 0; j < playersPlacedShips[i].length; j++) {
+        if (playersPlacedShips[i][j][0] === coordinates[0] || playersPlacedShips[i][j][1] === coordinates[1]) {
+            return true;  
+        }
       }
     }
   return false;  
 }
 
 //Pure Function decoupled away from shipPlacements()
-export function checkForOutOfBounds(commodore) {
-  console.log(commodore);
+export function checkForOutOfBounds(coordinates,length,direction) {
 
-    if (commodore.direction === "X") {
-      if (commodore.coordinates[0] + commodore.length > 8) {
+    if (direction === "X") {
+      if ((coordinates[0] + length) > 8) {
         return false;
       }
-    } else if (commodore.direction === "Y") {
-      if (commodore.coordinates[1] + commodore.length > 8) {
+    } else if (direction === "Y") {
+      if ((coordinates[1] + length) > 8) {
         return false;
       }
     }

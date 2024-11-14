@@ -18,7 +18,7 @@ test('null', () => {
       [7,2], [7,3], [7,4], [7,5]
     ]
   ]
-  const tested = shipPlacements(testCommodoreOne, "test", 5,"X");
+  const tested = shipPlacements(testCommodoreOne, "test", 3,"X");
 
   expect(tested).toBeTruthy();
 })
