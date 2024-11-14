@@ -58,15 +58,16 @@ function checkShipPlacement(playersShips,length,direction,coordinates) {
 
     // check for already placed Ships
     if (direction == "X") {
+      testedCoordinates[0] = testedCoordinates[0] + 1;
       for (let i=0;i<length;i++) {
-        if (checkForPlacedShips(playersShips,testedCoordinates) === true) {
+        if (checkForPlacedShips(playersShips,testedCoordinates) == true) {
           return false;
         }
       }
     } else if (direction == "Y") {
       testedCoordinates[1] = testedCoordinates[1] + 1;
       for (let i=0;i<length;i++) {
-        if (checkForPlacedShips(playersShips,testedCoordinates)=== true) {
+        if (checkForPlacedShips(playersShips,testedCoordinates) == true) {
           return false;
         }
       }
@@ -79,10 +80,10 @@ function checkShipPlacement(playersShips,length,direction,coordinates) {
   }
 
 
-function checkForPlacedShips(playersPlacedShips, coordinates) {
+export function checkForPlacedShips(playersPlacedShips, coordinates) {
     for (let i = 0; i < playersPlacedShips.length; i++) {
       for (let j = 0; j < playersPlacedShips[i].length; j++) {
-        if (playersPlacedShips[i][j][0] === coordinates[0] || playersPlacedShips[i][j][1] === coordinates[1]) {
+        if (playersPlacedShips[i][j][0] === coordinates[0] && playersPlacedShips[i][j][1] === coordinates[1]) {
             return true;  
         }
       }
