@@ -37,6 +37,9 @@ const Gameboard = function(computer) {
   const placedShips = [
     [
       [3,4], [4,4], [5,4]
+    ],
+    [
+      [7,2], [7,3], [7,4], [7,5]
     ]
   ];   // adjacency list of placed ships
 
@@ -63,7 +66,6 @@ const Gameboard = function(computer) {
     board:board,
     placedShips:placedShips,
   }
-
 }
 
 
