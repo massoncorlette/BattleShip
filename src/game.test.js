@@ -1,4 +1,4 @@
-import { checkForPlacedShips,checkForOutOfBounds, shipPlacements, startGame,commodoreOne } from "./game";
+import { checkForOutOfBounds, shipPlacements, startGame,commodoreOne } from "./game";
 import { Player } from "./gameObjects";
 
 
@@ -16,10 +16,16 @@ test('null', () => {
     ],
     [
       [7,2], [7,3], [7,4], [7,5]
+    ],
+    [
+      [3,9], [3,8], [3,7], [3,6]
+    ],
+    [
+      [2,2], [3,2], [4,2], [5,2]
     ]
   ]
-  const tested = checkForPlacedShips(testCommodoreOne.playersBoard.placedShips, [3,8]);
+  const tested = shipPlacements(testCommodoreOne, "test", 5,"Y");
 
-  expect(tested).toBeFalsy();
+  expect(tested).toBeTruthy();
 })
 

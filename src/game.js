@@ -50,7 +50,7 @@ export function shipPlacements(commodore,shipType,length,direction) {
   // return commodore.playersBoard.placedShips;
 }
 
-function checkShipPlacement(playersShips,length,direction,coordinates) {
+export function checkShipPlacement(playersShips,length,direction,coordinates) {
 
     let testedCoordinates = [];
     testedCoordinates.push(coordinates[0]);
@@ -58,22 +58,22 @@ function checkShipPlacement(playersShips,length,direction,coordinates) {
 
     // check for already placed Ships
     if (direction == "X") {
-      testedCoordinates[0] = testedCoordinates[0] + 1;
       for (let i=0;i<length;i++) {
         if (checkForPlacedShips(playersShips,testedCoordinates) == true) {
           return false;
         }
+        testedCoordinates[0] = testedCoordinates[0] + 1;
       }
     } else if (direction == "Y") {
-      testedCoordinates[1] = testedCoordinates[1] + 1;
       for (let i=0;i<length;i++) {
         if (checkForPlacedShips(playersShips,testedCoordinates) == true) {
           return false;
         }
+        testedCoordinates[1] = testedCoordinates[1] + 1;
       }
     }
     // check for ship staying in bounds
-    if (checkForOutOfBounds(testedCoordinates,length,direction) == false) {
+    if (checkForOutOfBounds(coordinates,length,direction) == false) {
       return false;
     }
     return true;
@@ -95,11 +95,11 @@ export function checkForPlacedShips(playersPlacedShips, coordinates) {
 export function checkForOutOfBounds(coordinates,length,direction) {
 
     if (direction === "X") {
-      if ((coordinates[0] + length) > 8) {
+      if ((coordinates[0] + length) > 11) {
         return false;
       }
     } else if (direction === "Y") {
-      if ((coordinates[1] + length) > 8) {
+      if ((coordinates[1] + length) > 11) {
         return false;
       }
     }
