@@ -30,18 +30,14 @@ const Ship = function(shipType,length,direction,coordinates) {
 }
 
 
-const Gameboard = function(computer) {
+export const Gameboard = function(computer) {
 
   const board = []; // [x][y] //keep track of missed attacks, storing attacks here
 
-  const placedShips = [
-    [
-      [3,4], [4,4], [5,4]
-    ],
-    [
-      [7,2], [7,3], [7,4], [7,5]
-    ]
-  ];   // adjacency list of placed ships
+  const ships = [];
+  ships.push(new Ship("Carrier", 5), new Ship("Battleship", 4), new Ship("Cruiser", 3), new Ship("Submarine", 3));
+
+  const placedShips = [];   // adjacency list of placed ships
 
   function placeShip(shipType,length,direction,coordinates) {
 
@@ -61,6 +57,7 @@ const Gameboard = function(computer) {
 
   }
   return {
+    ships:ships,
     placeShip:placeShip,
     receiveAttack:receiveAttack,
     board:board,

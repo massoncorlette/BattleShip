@@ -10,6 +10,7 @@ also result in following SOLID principles
 - Pay attention to how I represent the gameboard, since I want the ships to be able 
 to change direction. 
 
+- USE PRETTIER extension at the end of project, I always forget to.
 
 
 Psuedo (game.js)
@@ -21,20 +22,23 @@ potential moves from given vertice)***
 intializingApp() will use DOM function to render
 --
 ** I can TDD all these functions in order **
-1. startGame(computer/human) calling shipPlacements()
+1. startGame(computer/human) calling placeAllShips()
 
-2. shipPlacements() used to generate randomly/get all coordinates for all ships, calling
+2. placeAllShips(player) will place all the ships for the passed Player obj's ships
+calling shipPlacements on every ship stored in the Object
+
+3. shipPlacements() used to generate randomly/get all coordinates for all ships, calling
 placeShip(), using generateRandom until coordinate is valid to place
 
 	(2b. generateRandom coordinates between 0-8 for both X and Y)
 
-3. placeShip() will use a given ships properties to check along X or Y axis, calling
+4. placeShip() will use a given ships properties to check along X or Y axis, calling
 checkForPlacedShips() upon every coorindate
 
-4. checkForPlacedShips() will check to make sure coordinates for ship is valid,
+5. checkForPlacedShips() will check to make sure coordinates for ship is valid,
 checking ship adjacency list for already placed ships (first vertex given coordinate)
 
-5. testShipPlacement() used for TDD and check out of bounds
+6. testShipPlacement() used for TDD and check out of bounds
 
 Pseudo in plain english:
 

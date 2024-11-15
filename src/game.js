@@ -16,14 +16,21 @@ export function initializeApp() {
 export async function startGame() {
   commodoreOne = new Player();
 
-  shipPlacements(commodoreOne,"BattleShip",4,"X"); // get all those properties from DOM logic
+  placeAllShips(commodoreOne.playersBoard); // get all those properties from DOM logic
+}
+
+export function placeAllShips(playersBoard) {
+
+    playersBoard.ships.forEach((ship) => {
+      shipPlacements(playersBoard,ship.shipType,ship.length,"X")
+    })
+    console.log(playersBoard.placedShips);
 }
 
 
-export function shipPlacements(commodore,shipType,length,direction) {
+export function shipPlacements(playersBoard,shipType,length,direction) {
 
   const ship = shipType;
-  const playersBoard = commodore.playersBoard;
 
   function generateCoordinates() {
     let coordinates = [];
@@ -34,19 +41,20 @@ export function shipPlacements(commodore,shipType,length,direction) {
   }
   let generatedCoordinates = generateCoordinates();
 
-  console.log(playersBoard.placedShips);
+  console.log(playersBoard);
 
   while (checkShipPlacement(playersBoard.placedShips,length,direction,generatedCoordinates) === false) {
     generatedCoordinates = generateCoordinates();
   }
 
   // the while statement returning final returned valid coordinates
-  // commodore.playersBoard.placeShip(shipType,length,direction,generatedCoordinates);
+  playersBoard.placeShip(shipType,length,direction,generatedCoordinates);
 
   console.log(generatedCoordinates);
+  console.log(playersBoard.placedShips);
+
   return true;
 
-  // console.log(commodore.playersBoard);
   // return commodore.playersBoard.placedShips;
 }
 
@@ -82,10 +90,8 @@ export function checkShipPlacement(playersShips,length,direction,coordinates) {
 
 export function checkForPlacedShips(playersPlacedShips, coordinates) {
     for (let i = 0; i < playersPlacedShips.length; i++) {
-      for (let j = 0; j < playersPlacedShips[i].length; j++) {
-        if (playersPlacedShips[i][j][0] === coordinates[0] && playersPlacedShips[i][j][1] === coordinates[1]) {
-            return true;  
-        }
+      if (playersPlacedShips[i].coordinates[0] === coordinates[0] && playersPlacedShips[i].coordinates[1] === coordinates[1]) {
+          return true;  
       }
     }
   return false;  
