@@ -4,6 +4,7 @@
 const Ship = function(shipType,length,direction,coordinates) {
   const hitDetection = 0;
   const allCoordinates = []; // once ship is placed valid, it's coordinates here
+  let status = true;
 
   function hit(damage) {
     if (damage) {
@@ -48,7 +49,7 @@ const Ship = function(shipType,length,direction,coordinates) {
 
 export const Gameboard = function(computer) {
 
-  const board = []; // [x][y] //keep track of missed attacks, storing attacks here?
+  const attacks = []; // [x][y] //keep track of missed attacks, storing attacks here?
 
   const ships = [];
   ships.push(new Ship("Carrier", 5), new Ship("Battleship", 4), new Ship("Cruiser", 3), new Ship("Submarine", 3), new Ship("Destroyer", 2));
@@ -72,18 +73,41 @@ export const Gameboard = function(computer) {
     placedShips.push(newShip);
   }
 
-  function receiveAttack(shipType, attackCoordinates) {
-
-    if (arguments.length < 2) {
-      throw new Error('missing ship details');
+  function shipStatus() {
+    for (let i=0;i<placedShips;i++) {
+      if (placedShips.status === true) {
+        return true;
+      }
     }
+    return false;
+  }
 
+  function receiveAttack(attackCoordinates) {
+
+    if (arguments.length < 1) {
+      throw new Error('missing coordinates');
+    }
+    for (let i=0;i<placedShips.length;i++) {
+      for (let j=0;j<placedShips[i].length;j++) {
+        if (placedShips[i].coordinates[j][0] == attackCoordinates[0] && placedShips[i].coordinates[j][1] == attackCoordinates[0]) {
+          attacks.push(coordinates);
+
+          if (shipStatus() === false) {
+            true;
+          } else {
+            return placedShips[i];
+          }
+        }
+      }
+    }
+    attacks.push(coordinates);
+    return false;
   }
   return {
     ships:ships,
     placeShip:placeShip,
     receiveAttack:receiveAttack,
-    board:board,
+    attacks:attacks,
     placedShips:placedShips,
     listOfShipsCoordinates:listOfShipsCoordinates,
   }
