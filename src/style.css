@@ -1,0 +1,38 @@
+* {border: 1px solid rgba(255, 0, 0, 0.5);}
+
+
+body {
+  height: 100vh;
+  margin: 0%;
+  max-width: 100%;
+  font-family: "Nunito Sans", sans-serif;
+  background-color: var(--accent-color-2);
+}
+
+#main {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(20, 5%);
+  grid-template-rows: repeat(20, 5%);
+}
+
+#startDisplay {
+  grid-row: 7/14;
+  grid-column: 8/14;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#startBtn {
+  width: 20%;
+  height: 20%;
+}
+
+#startBtn:hover {
+  scale: 1.1;
+  cursor: pointer;
+}
+

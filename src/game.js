@@ -29,7 +29,6 @@ export function placeAllShips(playersBoard) {
       let randomDirection = getRandomDirection()
       shipPlacements(playersBoard,ship.shipType,ship.length,randomDirection)
     })
-    console.log(playersBoard.placedShips);
 }
 
 export function shipPlacements(playersBoard,shipType,length,direction) {
@@ -44,8 +43,6 @@ export function shipPlacements(playersBoard,shipType,length,direction) {
     return coordinates;
   }
   let generatedCoordinates = generateCoordinates();
-
-  console.log(playersBoard);
 
   while (checkShipPlacement(playersBoard.listOfShipsCoordinates,length,direction,generatedCoordinates) === false) {
     generatedCoordinates = generateCoordinates();
