@@ -48,6 +48,17 @@ Until the coordinates are not in the way of other ships (based upon the given co
 length and direction) and checking inside players placedShips list, we can check for true
 return from checkingShipPlacement.
 
+Pseudo (dom.js)
+
+
+1. Setup Dom, start button loads in the main page.
+
+2. We can generate board function, passing function
+for board array
+
+3. 
+
+
 *** We may have to rework more logic than I think for drag and drop. ***
 
 

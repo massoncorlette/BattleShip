@@ -15,3 +15,5 @@ export function setupDOM() {
     main.innerHTML = '';
 
   }
+
+  

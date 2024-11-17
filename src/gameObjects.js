@@ -49,7 +49,7 @@ const Ship = function(shipType,length,direction,coordinates) {
 
 export const Gameboard = function(computer) {
 
-  const attacks = []; // [x][y] //keep track of missed attacks, storing attacks here?
+  const gameBoard = []; // [x][y] //keep track of missed attacks, storing attacks here?
 
   const ships = [];
   ships.push(new Ship("Carrier", 5), new Ship("Battleship", 4), new Ship("Cruiser", 3), new Ship("Submarine", 3), new Ship("Destroyer", 2));
@@ -57,6 +57,19 @@ export const Gameboard = function(computer) {
   const placedShips = [];   
 
   const listOfShipsCoordinates = []; //adjacency list of coordinates for all placed ships
+
+  function makeBoard() {
+    for (let i=0;i<10;i++) {
+      let newColumn = [];
+      for (let j=0;j<10;j++) {
+        let newCell = [];
+        newColumn.push(newCell);
+      }
+      gameBoard.push(newColumn);
+    }
+    console.log(gameBoard);
+  }
+  makeBoard();
 
 
   function placeShip(shipType,length,direction,coordinates) {
@@ -90,7 +103,9 @@ export const Gameboard = function(computer) {
     for (let i=0;i<placedShips.length;i++) {
       for (let j=0;j<placedShips[i].length;j++) {
         if (placedShips[i].coordinates[j][0] == attackCoordinates[0] && placedShips[i].coordinates[j][1] == attackCoordinates[0]) {
-          attacks.push(coordinates);
+
+          //ATTACK SHIP HERE
+          //PUSH MISSED ATTACK HERE TO GAMEBOARD
 
           if (shipStatus() === false) {
             true;
@@ -100,14 +115,17 @@ export const Gameboard = function(computer) {
         }
       }
     }
-    attacks.push(coordinates);
+
+    //PUSH MISSED ATTACK HERE TO GAMEBOARD
+
     return false;
   }
   return {
     ships:ships,
+    makeBoard:makeBoard,
     placeShip:placeShip,
     receiveAttack:receiveAttack,
-    attacks:attacks,
+    gameBoard:gameBoard,
     placedShips:placedShips,
     listOfShipsCoordinates:listOfShipsCoordinates,
   }
