@@ -36,3 +36,27 @@ body {
   cursor: pointer;
 }
 
+#gameBoard {
+  display: grid;
+  grid-row: 4/17;
+  grid-column: 6/16;
+  grid-template-columns: repeat(10,1fr);
+  grid-template-rows: repeat(10,1fr);
+
+}
+
+.gridRows {
+  display: grid;
+  grid-row: span 1;
+  grid-column: span 10;
+  grid-template-columns: repeat(10,1fr);
+  border: solid red 1px;
+}
+
+.gridCell {
+  grid-column: span 1;
+  width: 10%;
+  height: 10%;
+}
+
+
