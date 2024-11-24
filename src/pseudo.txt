@@ -1,5 +1,6 @@
 https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
 
+
 This projects instructions provides pretty minimal directions on how to go about 
 making this. I have more freedom on this than any previous project, here is 
 some things I want to make sure of:
@@ -65,6 +66,10 @@ a listener listens for an attacking
 
 
 *** We may have to rework more logic than I think for drag and drop. ***
+
+Current Focus:
+
+1. 
 
 
 - Try to follow the conventional Git command standards
