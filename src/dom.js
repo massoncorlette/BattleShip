@@ -20,7 +20,7 @@ export function setupDOM() {
     main.innerHTML = '';
     main.appendChild(board);
     loadBoard();
-
+    getCoordinates();
   }
 
   function loadBoard() {
@@ -35,11 +35,23 @@ export function setupDOM() {
       for (let j=0;j<10;j++) {
         const cell = document.createElement('div');
         cell.classList.add('gridCells');
-        cell.id = [i + 1,j + 1];
+        cell.id = [j + 1,10 - i];
         row.appendChild(cell);
       } 
       board.appendChild(row);
     }
+  }
+
+  function getCoordinates() {
+
+    let cells = document.querySelectorAll('.gridCells');
+
+    cells.forEach(cell => {
+      cell.addEventListener('click', () => {
+        console.log(cell.id);
+      });
+    });
+
   }
 
 

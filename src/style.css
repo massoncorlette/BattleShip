@@ -1,4 +1,11 @@
-* {border: 1px solid rgba(255, 0, 0, 0.5);}
+
+
+
+:root {
+  --primary-color: rgb(5, 14, 5);
+  --secondary-color:rgb(82, 201, 45);
+
+}
 
 
 body {
@@ -6,7 +13,7 @@ body {
   margin: 0%;
   max-width: 100%;
   font-family: "Nunito Sans", sans-serif;
-  background-color: var(--accent-color-2);
+  background-color: var(--primary-color);
 }
 
 #main {
@@ -50,13 +57,15 @@ body {
   grid-row: span 1;
   grid-column: span 10;
   grid-template-columns: repeat(10,1fr);
-  border: solid red 1px;
 }
 
-.gridCell {
-  grid-column: span 1;
-  width: 10%;
-  height: 10%;
+.gridCells {
+  border: solid var(--secondary-color) 1px;
+}
+
+.gridCells:hover {
+  background-color: var(--secondary-color);
+  cursor: pointer;
 }
 
 
