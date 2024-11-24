@@ -107,10 +107,17 @@ export const Gameboard = function(computer) {
           //ATTACK SHIP HERE
           //PUSH MISSED ATTACK HERE TO GAMEBOARD
 
-          if (shipStatus() === false) {
-            true;
-          } else {
-            return placedShips[i];
+          placedShips[i].hit(true);
+
+          const checkShipStatus = placedShips[i].isSunk();
+          if (checkShipStatus != false) {
+
+            // return true if all ships are sunk
+            if (shipStatus() === false) {
+              true;
+            } 
+            // else returns the sunked ship
+            return checkShipStatus;
           }
         }
       }

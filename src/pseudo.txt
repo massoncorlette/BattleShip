@@ -52,24 +52,32 @@ return from checkingShipPlacement.
 Pseudo (dom.js)
 
 
-1. Setup Dom, start button loads in the main page.
+1. load in the start screen
 
-2. We can generate board function, passing function
-for board array
+2. based upon mode load the game
 
-3. Have a player toggle
+3. load the board along with making two player objects (second obj comp/human)
 
-4. Have a turn taker function, where the player is switched and 
-a listener listens for an attacking
+    3a. place all ships (random for right now)
 
-5. 
+    3b. switch player function
+
+    3c. getCoordinates used to switch eventListener for current active board
+
+4. based upon current player turn, listen for coordinates and return them,
+use switch player function
+
+5. use the returned coordinates to pass onto the opponents recieve attack in
+gameBoard obj **pushing missed attacks to gameBoard in player.gameboard obj**
+
+  5a. if the recieveAttack returns true, game over - attacking player wins
+
+  5b. if ship is sunk will return the name of the ship for UI
+
+  5c. if missed shot, false is returned
 
 
 *** We may have to rework more logic than I think for drag and drop. ***
-
-Current Focus:
-
-1. 
 
 
 - Try to follow the conventional Git command standards

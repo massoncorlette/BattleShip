@@ -41,6 +41,8 @@ export function loadScreen() {
     onePBtn.innerHTML = '1P';
   })
 
+  onePBtn.addEventListener('click', (loadGame('1p')));
+
   twoPBtn.addEventListener('mouseenter', () => {
     twoPBtn.innerHTML = '&#9654 2P';
   })
@@ -50,20 +52,24 @@ export function loadScreen() {
   })
 }
 
-function loadGame() {
+function loadGame(mode) {
   const main = document.getElementById('main');
   const board = document.createElement('div');
-  board.id = 'gameBoard';
+  board.id = 'gameBoardOne';
+  const boardTwo = document.createElement('div');
+  boardTwo.id = 'gameBoardTwo';
+  board.classList.add('gameBoard');
+  boardTwo.classList.add('gameBoard');
 
   main.innerHTML = '';
   main.appendChild(board);
-  loadBoard();
+  main.appendChild(boardTwo);
+  loadBoard(board);
+  loadBoard(boardTwo);
   getCoordinates();
 }
 
-function loadBoard() {
-
-  let board = document.querySelector('#gameBoard');
+function loadBoard(board) {
 
   for (let i=0;i<10;i++) {
     const row = document.createElement('div');
