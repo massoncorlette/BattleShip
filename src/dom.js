@@ -3,6 +3,9 @@
 import { startGame } from "./game";
 import { Player } from "./gameObjects";
 
+import Carrier from '../images/Carrier.png';
+
+
 
 
 export function loadScreen() {
@@ -41,7 +44,7 @@ export function loadScreen() {
     onePBtn.innerHTML = '1P';
   })
 
-  onePBtn.addEventListener('click', (loadGame('1p')));
+  onePBtn.addEventListener('click', (loadGame));
 
   twoPBtn.addEventListener('mouseenter', () => {
     twoPBtn.innerHTML = '&#9654 2P';
@@ -52,9 +55,11 @@ export function loadScreen() {
   })
 }
 
-function loadGame(mode) {
+function loadGame() {
   const main = document.getElementById('main');
   const board = document.createElement('div');
+  const shipsContainer = document.createElement('div');
+  shipsContainer.id = 'shipsContainer';
   board.id = 'gameBoardOne';
   const boardTwo = document.createElement('div');
   boardTwo.id = 'gameBoardTwo';
@@ -64,8 +69,10 @@ function loadGame(mode) {
   main.innerHTML = '';
   main.appendChild(board);
   main.appendChild(boardTwo);
+  main.appendChild(shipsContainer);
   loadBoard(board);
   loadBoard(boardTwo);
+  loadShips();
   getCoordinates();
 }
 
@@ -85,6 +92,25 @@ function loadBoard(board) {
     board.appendChild(row);
   }
 }
+
+function loadShips() {
+
+  function divImages(image, id) {
+    const shipContainer = document.getElementById('shipsContainer');
+    const divElement = document.createElement('div');
+    const img = document.createElement('image');
+    img.src = image;
+    divElement.id = id;
+    divElement.appendChild(img);
+
+    shipContainer.appendChild(divElement);
+  }
+
+  divImages(Carrier,'carrier');
+
+}
+
+
 
   function getCoordinates() {
 
