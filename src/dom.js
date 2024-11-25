@@ -4,6 +4,10 @@ import { startGame } from "./game";
 import { Player } from "./gameObjects";
 
 import Carrier from '../images/Carrier.png';
+import Submarine from '../images/Submarine.png';
+import Cruiser from '../images/Cruiser.png';
+import BattleShip from '../images/Battleship.png';
+import Destroyer from '../images/Destroyer.png';
 
 
 
@@ -98,8 +102,9 @@ function loadShips() {
   function divImages(image, id) {
     const shipContainer = document.getElementById('shipsContainer');
     const divElement = document.createElement('div');
-    const img = document.createElement('image');
+    const img = document.createElement('img');
     img.src = image;
+    divElement.classList.add('shipPNGs');
     divElement.id = id;
     divElement.appendChild(img);
 
@@ -107,7 +112,10 @@ function loadShips() {
   }
 
   divImages(Carrier,'carrier');
-
+  divImages(BattleShip,'battleship');
+  divImages(Cruiser,'cruiser');
+  divImages(Submarine,'submarine');
+  divImages(Destroyer,'destroyer');
 }
 
 
