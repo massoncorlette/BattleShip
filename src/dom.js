@@ -108,6 +108,8 @@ function loadShips() {
 
   function divImages(image, id) {
     const shipContainer = document.getElementById('shipsContainer');
+    const boardOne = document.getElementById('gameBoardOne');
+    const boardTwo = document.getElementById('gameBoardTwo');
     let divElement = document.createElement('div');
     const img = document.createElement('img');
     img.src = image;
@@ -116,6 +118,8 @@ function loadShips() {
     divElement.appendChild(img);
 
     draggableImages().setDraggable(divElement);
+    draggableImages().setDrop(boardOne);
+    draggableImages().setDrop(boardTwo);
 
     shipContainer.appendChild(divElement);
   }
@@ -126,6 +130,7 @@ function loadShips() {
       div.addEventListener('dragstart', function(event) {
         drag(event);
       });
+      setDrop(div);
     }
 
     function setDrop(div) {
