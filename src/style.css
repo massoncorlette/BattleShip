@@ -4,7 +4,7 @@
 :root {
   --primary-color: rgb(12, 36, 12);
   --secondary-color:rgb(80, 200, 45);
-
+  --third-color:rgb(12, 54, 0);
 }
 
 
@@ -29,7 +29,7 @@ h1 {
 }
 
 p {
-  position: absolute;
+  color: var(--secondary-color);
 }
 
 #startDisplay {
@@ -90,22 +90,33 @@ Button:hover {
 }
 
 #gameBoardOne {
-  grid-row: 5/65;
+  grid-row: 5/60;
   grid-column: 5/48;
 }
 
 #gameBoardTwo {
-  grid-row: 5/65;
+  grid-row: 5/60;
   grid-column: 52/95;
 }
 
+#txtContainer {
+  grid-row: 64/71;
+  grid-column: 5/95;
+  background-color: var(--third-color);
+  border: solid var(--secondary-color) 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #shipsContainer {
-  grid-row: 70/95;
+  grid-row: 75/95;
   grid-column: 5/95;
   border: solid var(--secondary-color) 1px;
   display: grid;
   grid-template-columns: repeat(10,10%);
   grid-template-rows: repeat(4,25%);
+  background-color: var(--third-color);
 }
 
 .shipPNGs {

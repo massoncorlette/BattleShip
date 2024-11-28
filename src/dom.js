@@ -62,6 +62,12 @@ export function loadScreen() {
 function loadGame() {
   const main = document.getElementById('main');
   const board = document.createElement('div');
+  const txtContainer = document.createElement('div');
+  const txt = document.createElement('p');
+  txt.id = 'txt';
+  txt.innerText = 'TEST TEXT';
+  txtContainer.id = 'txtContainer';
+  txtContainer.appendChild(txt);
   const shipsContainer = document.createElement('div');
   shipsContainer.id = 'shipsContainer';
   board.id = 'gameBoardOne';
@@ -73,6 +79,7 @@ function loadGame() {
   main.innerHTML = '';
   main.appendChild(board);
   main.appendChild(boardTwo);
+  main.appendChild(txtContainer);
   main.appendChild(shipsContainer);
   loadBoard(board);
   loadBoard(boardTwo);
@@ -101,14 +108,55 @@ function loadShips() {
 
   function divImages(image, id) {
     const shipContainer = document.getElementById('shipsContainer');
-    const divElement = document.createElement('div');
+    let divElement = document.createElement('div');
     const img = document.createElement('img');
     img.src = image;
     divElement.classList.add('shipPNGs');
     divElement.id = id;
     divElement.appendChild(img);
 
+    draggableImages().setDraggable(divElement);
+
     shipContainer.appendChild(divElement);
+  }
+
+  function draggableImages() {
+    function setDraggable(div) {
+      div.setAttribute('draggable', (true));
+      div.addEventListener('dragstart', function(event) {
+        drag(event);
+      });
+    }
+
+    function setDrop(div) {
+
+      div.addEventListener('ondragover', function(event) {
+        allowDrop(event);
+      })
+
+      div.addEventListener('ondrop', function(event) {
+        drop(event);
+      })
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+    
+    function drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    }
+
+    return {
+      setDraggable:setDraggable,
+      setDrop:setDrop,
+    }
   }
 
   divImages(Carrier,'carrier');
