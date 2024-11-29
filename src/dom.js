@@ -110,60 +110,57 @@ function loadShips() {
     const shipContainer = document.getElementById('shipsContainer');
     const boardOne = document.getElementById('gameBoardOne');
     const boardTwo = document.getElementById('gameBoardTwo');
-    let divElement = document.createElement('div');
+    let shipElement = document.createElement('div');
     const img = document.createElement('img');
     img.src = image;
-    divElement.classList.add('shipPNGs');
-    divElement.id = id;
-    divElement.appendChild(img);
+    shipElement.classList.add('shipPNGs');
+    shipElement.id = id;
+    shipElement.appendChild(img);
 
-    draggableImages().setDraggable(img);
-    draggableImages().setDrop(boardOne);
-    draggableImages().setDrop(boardTwo);
+    draggableImages().setDraggable(shipElement);
 
-    shipContainer.appendChild(divElement);
+
+    shipContainer.appendChild(shipElement);
   }
 
   function draggableImages() {
-    function setDraggable(div) {
-      div.setAttribute('draggable', (true));
-      div.addEventListener('dragstart', function(event) {
-        div.classList.add('shipPNGsAlt');
-      });
-      div.addEventListener('dragend', function(event) {
-        div.classList.remove('shipPNGsAlt');
+    function setDraggable(ship) {
+      ship.draggable = 'true';
+      ship.addEventListener('dragstart', function(event) {
+        console.log(event);
       })
-      setDrop(div);
+      setDrop(ship);
     }
 
-    function setDrop(div) {
+    function setDrop(ship) {
+      const selectAllCells = document.querySelectorAll('.gridCells');
+      const selectAllRows = document.querySelectorAll('.gridRows');
 
-      div.addEventListener('ondragover', function(event) {
-        allowDrop(event);
+      selectAllCells.forEach(cell => {
+        cell.addEventListener('dragover', function(event) {
+          event.preventDefault();
+        })
       })
 
-      div.addEventListener('ondrop', function(event) {
-        drop(event);
+      selectAllRows.forEach(row => {
+        row.addEventListener('dragover', function(event) {
+          event.preventDefault();
+        })
       })
-    }
 
-    function allowDrop(ev) {
-      ev.preventDefault();
-    }
+      selectAllCells.forEach(cell => {
+        cell.addEventListener('drop', function(event) {
+          ship.style.position = 'relative'; 
+          ship.style.left = '0';
+          ship.style.top = '0';
+          cell.append(ship);
+        })
+      })
 
-    function drag(ev) {
-      ev.dataTransfer.setData("text", ev.target.id);
-    }
-    
-    function drop(ev) {
-      ev.preventDefault();
-      var data = ev.dataTransfer.getData("text");
-      ev.target.appendChild(document.getElementById(data));
     }
 
     return {
       setDraggable:setDraggable,
-      setDrop:setDrop,
     }
   }
 
@@ -173,9 +170,6 @@ function loadShips() {
   divImages(Submarine,'submarine');
   divImages(Destroyer,'destroyer');
 }
-
-
-
   function getCoordinates() {
 
     let cells = document.querySelectorAll('.gridCells');
