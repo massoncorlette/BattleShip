@@ -117,10 +117,8 @@ function loadShips() {
     shipElement.id = id;
     shipElement.appendChild(img);
 
-    draggableImages().setDraggable(shipElement);
-
-
     shipContainer.appendChild(shipElement);
+    draggableImages().setDraggable(shipElement);
   }
 
   function draggableImages() {
@@ -128,8 +126,8 @@ function loadShips() {
       ship.draggable = 'true';
       ship.addEventListener('dragstart', function(event) {
         console.log(event);
+        setDrop(ship);
       })
-      setDrop(ship);
     }
 
     function setDrop(ship) {
@@ -148,12 +146,10 @@ function loadShips() {
         })
       })
 
-      selectAllCells.forEach(cell => {
-        cell.addEventListener('drop', function(event) {
-          ship.style.position = 'relative'; 
-          ship.style.left = '0';
-          ship.style.top = '0';
-          cell.append(ship);
+      selectAllRows.forEach(row => {
+        row.addEventListener('drop', function(event) {
+          ship.style.position = 'absolute'; 
+          row.append(ship);
         })
       })
 

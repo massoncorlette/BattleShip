@@ -1,4 +1,4 @@
-* {border: solid red 0px;}
+* {border: solid red 1px;}
 
 
 :root {
@@ -89,12 +89,13 @@ Button:hover {
 
 .gameBoard {
   display: grid;
-
+  position: relative;
   grid-template-columns: repeat(10,1fr);
   grid-template-rows: repeat(10,1fr);
 }
 
 #gameBoardOne {
+  position: relative;
   grid-row: 5/60;
   grid-column: 5/48;
 }
@@ -128,12 +129,12 @@ Button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
- 
 }
 
 .shipPNGsAlt {
   color: red;
   opacity: 0.3;
+  position: absolute;
 }
 
 #carrier {
@@ -191,10 +192,12 @@ Button:hover {
   grid-row: span 1;
   grid-column: span 10;
   grid-template-columns: repeat(10,1fr);
+  position: relative;
 }
 
 .gridCells {
   border: solid var(--secondary-color) 1px;
+  position: relative;
 }
 
 .gridCells:hover {
