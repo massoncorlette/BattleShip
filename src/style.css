@@ -32,6 +32,11 @@ p {
   color: var(--secondary-color);
 }
 
+
+img:hover {
+  cursor: pointer;
+}
+
 #startDisplay {
   grid-row: 30/70;
   grid-column: 30/70;
@@ -123,6 +128,12 @@ Button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+ 
+}
+
+.shipPNGsAlt {
+  color: red;
+  opacity: 0.3;
 }
 
 #carrier {

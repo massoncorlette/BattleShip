@@ -117,7 +117,7 @@ function loadShips() {
     divElement.id = id;
     divElement.appendChild(img);
 
-    draggableImages().setDraggable(divElement);
+    draggableImages().setDraggable(img);
     draggableImages().setDrop(boardOne);
     draggableImages().setDrop(boardTwo);
 
@@ -128,8 +128,11 @@ function loadShips() {
     function setDraggable(div) {
       div.setAttribute('draggable', (true));
       div.addEventListener('dragstart', function(event) {
-        drag(event);
+        div.classList.add('shipPNGsAlt');
       });
+      div.addEventListener('dragend', function(event) {
+        div.classList.remove('shipPNGsAlt');
+      })
       setDrop(div);
     }
 
