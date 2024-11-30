@@ -172,8 +172,16 @@ function loadShips(currentPlayer) {
           row.addEventListener('drop', function(event) {
             ship.style.position = 'absolute'; 
             row.append(ship);
+
+            ship.draggable = false;
+
+            ship.removeEventListener('dragstart', handleDragStart);
           })
         })
+        function handleDragStart(event) {
+          console.log(event);
+          setDrop(ship);
+        }
       }
 
       
