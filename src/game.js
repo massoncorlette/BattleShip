@@ -21,37 +21,21 @@ export async function startGame() {
 
 export function placeAllShips(playersBoard) {
   
-  function getRandomDirection() {
-    return Math.random() < 0.5 ? "X" : "Y";
-  }
+  const direction = 'X';
 
   playersBoard.ships.forEach((ship) => {
-    let randomDirection = getRandomDirection()
-    shipPlacements(playersBoard,ship.shipType,ship.length,randomDirection)
+
+    shipPlacements(playersBoard,ship.shipType,ship.length)
   })
 }
 
-export function shipPlacements(playersBoard,shipType,length,direction) {
+export function shipPlacements(playersBoard,shipType,length,direction,coordinates) {
 
-  const ship = shipType;
-
-  function generateCoordinates() {
-    let coordinates = [];
-    coordinates.push(Math.floor(Math.random() * 8) + 1);
-    coordinates.push(Math.floor(Math.random() * 8) + 1);
-
-    return coordinates;
-  }
-  let generatedCoordinates = generateCoordinates();
-
-  while (checkShipPlacement(playersBoard.listOfShipsCoordinates,length,direction,generatedCoordinates) === false) {
-    generatedCoordinates = generateCoordinates();
+  if (checkShipPlacement(playersBoard.listOfShipsCoordinates,length,direction,coordinates) === false) {
+    return false;
   }
   // the while statement returning final returned valid coordinates
-  playersBoard.placeShip(shipType,length,direction,generatedCoordinates);
-
-  console.log(generatedCoordinates);
-  console.log(playersBoard.placedShips);
+  playersBoard.placeShip(shipType,length,direction,coordinates);
 
   return true;
   // return commodore.playersBoard.placedShips;

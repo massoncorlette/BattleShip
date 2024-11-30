@@ -31,7 +31,6 @@ const Ship = function(shipType,length,direction,coordinates) {
           allCoordinates.push([coordinates[0],coordinates[1] + i])
         }
     }
-    console.log(allCoordinates);
     return allCoordinates;
   };
   return {
@@ -52,7 +51,6 @@ export const Gameboard = function(computer) {
   const gameBoard = []; // [x][y] //keep track of missed attacks, storing attacks here?
 
   const ships = [];
-  ships.push(new Ship("Carrier", 5), new Ship("Battleship", 4), new Ship("Cruiser", 3), new Ship("Submarine", 3), new Ship("Destroyer", 2));
 
   const placedShips = [];   
 
@@ -74,7 +72,7 @@ export const Gameboard = function(computer) {
 
   function placeShip(shipType,length,direction,coordinates) {
 
-    if (arguments.length < 3) {
+    if (arguments.length < 4) {
       throw new Error('need all ship properties');
     }
 

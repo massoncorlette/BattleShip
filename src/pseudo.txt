@@ -23,23 +23,22 @@ potential moves from given vertice)***
 intializingApp() will use DOM function to render
 --
 ** I can TDD all these functions in order **
-1. startGame(computer/human) calling placeAllShips()
+1. startGame(computer/human) will initialize two Player Objects,
+returning them to access in DOM
+
+  1b.(DOM) Update players ships, while being placed
+  1c. Upon being all placed initiate placeAllShips for each player
 
 2. placeAllShips(player) will place all the ships for the passed Player obj's ships
 calling shipPlacements on every ship stored in the Object
 
-3. shipPlacements() used to generate randomly/get all coordinates for all ships, calling
-placeShip(), using generateRandom until coordinate is valid to place
+3. shipPlacements() used to check if placement is valid using other functions that
+check for other ships, and it it goes out of bounds. 
+If it is valid, calls playersBoard.placeShip(). Else return false to DOM
 
-	(2b. generateRandom coordinates between 0-8 for both X and Y)
+4. placeShip() will finally make the ship Obj, and from passed starting coordinate,
+will push all the coordinates ship covers, pushing new ship to players ships. 
 
-4. placeShip() will use a given ships properties to check along X or Y axis, calling
-checkForPlacedShips() upon every coorindate
-
-5. checkForPlacedShips() will check to make sure coordinates for ship is valid,
-checking ship adjacency list for already placed ships (first vertex given coordinate)
-
-6. testShipPlacement() used for TDD and check out of bounds
 
 Pseudo in plain english:
 
@@ -52,32 +51,29 @@ return from checkingShipPlacement.
 Pseudo (dom.js)
 
 
-1. load in the start screen
+1. loadScreen from index.js 
 
-2. based upon mode load the game
+2. based upon mode loadGame (loading boards and ships)
 
-3. load the board along with making two player objects (second obj comp/human)
+  2b. loadPlayers will make two players objects, use function to switch
+  players, maybe using global or hoisting a variable for current player?
 
-    3a. place all ships (random for right now)
+3. loadShips will setup ships drag and drop
 
-    3b. switch player function
+  3a. divImages loading in the ships, adding draggableProperties
+  giving each element with shipPNGs id's that can pass into players ship
+  object properties?
 
-    3c. getCoordinates used to switch eventListener for current active board
+  3b. setDrop will take droppable ship and add Drag and Drop eventListener
 
-4. based upon current player turn, listen for coordinates and return them,
-use switch player function
+    3ba. drop event will place players ships, if function returns true.
+    Else if false, prevent drop.
 
-5. use the returned coordinates to pass onto the opponents recieve attack in
-gameBoard obj **pushing missed attacks to gameBoard in player.gameboard obj**
+    3bc. if all ships are placed succesfully, switch to place other players,
+    else start gameplay
 
-  5a. if the recieveAttack returns true, game over - attacking player wins
-
-  5b. if ship is sunk will return the name of the ship for UI
-
-  5c. if missed shot, false is returned
-
-
-*** We may have to rework more logic than I think for drag and drop. ***
+4. gamePlay will playout the game, switching players turns, while using
+attack function from ship obj that has logic for if player wins. 
 
 
 - Try to follow the conventional Git command standards

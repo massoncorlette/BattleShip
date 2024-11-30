@@ -59,7 +59,7 @@ export function loadScreen() {
   })
 }
 
-function loadGame() {
+function loadGame(gameMode) {
   const main = document.getElementById('main');
   const board = document.createElement('div');
   const txtContainer = document.createElement('div');
@@ -137,6 +137,12 @@ function loadShips() {
       selectAllCells.forEach(cell => {
         cell.addEventListener('dragover', function(event) {
           event.preventDefault();
+          cell.classList.add('gridCellsDragOver');
+        })
+
+        cell.addEventListener('dragleave', function(event) {
+          event.preventDefault();
+          cell.classList.remove('gridCellsDragOver');
         })
       })
 
@@ -152,6 +158,10 @@ function loadShips() {
           row.append(ship);
         })
       })
+      
+      function highlightCells(cellID, shipLength) {
+
+      }
 
     }
 
@@ -177,6 +187,5 @@ function loadShips() {
     });
 
   }
-
 
   
