@@ -3,7 +3,7 @@ import { Player } from "./gameObjects";
 // game flow logic here
 
 export let commodoreOne = null;
-let commodoreTwo = null; // two being human or computer
+export let commodoreTwo = null; // two being human or computer
 
 
 export function initializeApp() {
@@ -15,8 +15,7 @@ export function initializeApp() {
 
 export async function startGame() {
   commodoreOne = new Player();
-
-  placeAllShips(commodoreOne.playersBoard); // get all those properties from DOM logic
+  commodoreTwo = new Player();
 }
 
 export function placeAllShips(playersBoard) {
@@ -25,7 +24,7 @@ export function placeAllShips(playersBoard) {
 
   playersBoard.ships.forEach((ship) => {
 
-    shipPlacements(playersBoard,ship.shipType,ship.length)
+    shipPlacements(playersBoard,ship.shipType,ship.length,direction)
   })
 }
 

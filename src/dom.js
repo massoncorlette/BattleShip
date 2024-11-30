@@ -1,6 +1,6 @@
 // render objects in DOM here
 
-import { startGame } from "./game";
+import { startGame,commodoreOne,commodoreTwo } from "./game";
 import { Player } from "./gameObjects";
 
 import Carrier from '../images/Carrier.png';
@@ -83,7 +83,8 @@ function loadGame(gameMode) {
   main.appendChild(shipsContainer);
   loadBoard(board);
   loadBoard(boardTwo);
-  loadShips();
+  loadShips('playerOne');
+  startGame();
   getCoordinates();
 }
 
@@ -104,7 +105,7 @@ function loadBoard(board) {
   }
 }
 
-function loadShips() {
+function loadShips(currentPlayer) {
 
   function divImages(image, id) {
     const shipContainer = document.getElementById('shipsContainer');
@@ -131,33 +132,50 @@ function loadShips() {
     }
 
     function setDrop(ship) {
-      const selectAllCells = document.querySelectorAll('.gridCells');
-      const selectAllRows = document.querySelectorAll('.gridRows');
+      const boardOneCells = document.querySelectorAll('#gameBoardOne .gridCells');
+      const boardTwoCells = document.querySelectorAll('#gameBoardTwo .gridCells');
 
-      selectAllCells.forEach(cell => {
-        cell.addEventListener('dragover', function(event) {
-          event.preventDefault();
-          cell.classList.add('gridCellsDragOver');
-        })
+      const boardOneRows = document.querySelectorAll('#gameBoardOne .gridRows');
+      const boardTwoRows = document.querySelectorAll('#gameBoardOne .gridRows');
 
-        cell.addEventListener('dragleave', function(event) {
-          event.preventDefault();
-          cell.classList.remove('gridCellsDragOver');
-        })
-      })
+      if (currentPlayer === 'playerOne') {
+        const selectAllCells = boardOneCells;
+        const selectAllRows = boardOneRows;
+        dropListenerEvents(selectAllCells,selectAllRows);
+      } else if (currentPlayer === 'playerTwo') {
+        const selectAllCells = boardTwoCells;
+        const selectAllRows = boardTwoRows;
+        dropListenerEvents(selectAllCells,selectAllRows);
+      }
 
-      selectAllRows.forEach(row => {
-        row.addEventListener('dragover', function(event) {
-          event.preventDefault();
-        })
-      })
+      function dropListenerEvents(cells,rows) {
 
-      selectAllRows.forEach(row => {
-        row.addEventListener('drop', function(event) {
-          ship.style.position = 'absolute'; 
-          row.append(ship);
+        cells.forEach(cell => {
+          cell.addEventListener('dragover', function(event) {
+            event.preventDefault();
+            cell.classList.add('gridCellsDragOver');
+          })
+  
+          cell.addEventListener('dragleave', function(event) {
+            event.preventDefault();
+            cell.classList.remove('gridCellsDragOver');
+          })
         })
-      })
+  
+        rows.forEach(row => {
+          row.addEventListener('dragover', function(event) {
+            event.preventDefault();
+          })
+        })
+  
+        rows.forEach(row => {
+          row.addEventListener('drop', function(event) {
+            ship.style.position = 'absolute'; 
+            row.append(ship);
+          })
+        })
+      }
+
       
       function highlightCells(cellID, shipLength) {
 
