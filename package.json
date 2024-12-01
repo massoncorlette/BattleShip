@@ -26,5 +26,8 @@
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.0"
+  },
+  "dependencies": {
+    "interactjs": "^1.10.27"
   }
 }

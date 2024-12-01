@@ -32,6 +32,9 @@ p {
   color: var(--secondary-color);
 }
 
+img {
+  -webkit-user-drag:none;
+}
 
 img:hover {
   cursor: pointer;
