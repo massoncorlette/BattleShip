@@ -13,10 +13,6 @@ export function initializeApp() {
  
 }
 
-export async function startGame() {
-  commodoreOne = new Player();
-  commodoreTwo = new Player();
-}
 
 export function placeAllShips(playersBoard) {
   

@@ -2,7 +2,7 @@
 
 import interact from 'interactjs'
 
-import { startGame,commodoreOne,commodoreTwo } from "./game";
+import { startGame as commodoreOne,commodoreTwo } from "./game";
 import { Player } from "./gameObjects";
 
 import Carrier from '../images/Carrier.png';
@@ -61,6 +61,23 @@ export function loadScreen() {
   })
 }
 
+function loadBoard(board) {
+
+  for (let i=0;i<10;i++) {
+    const row = document.createElement('div');
+    row.classList.add('gridRows');
+    board.appendChild(row);
+
+    for (let j=0;j<10;j++) {
+      const cell = document.createElement('div');
+      cell.classList.add('gridCells');
+      cell.id = [j + 1,10 - i];
+      row.appendChild(cell);
+    } 
+    board.appendChild(row);
+  }
+}
+
 function loadGame(gameMode) {
   const main = document.getElementById('main');
   const board = document.createElement('div');
@@ -85,105 +102,62 @@ function loadGame(gameMode) {
   main.appendChild(shipsContainer);
   loadBoard(board);
   loadBoard(boardTwo);
-  loadShips('playerOne');
-  startGame();
+
   getCoordinates();
 }
 
-function loadBoard(board) {
+function gamePlay(gameMode) {
 
-  for (let i=0;i<10;i++) {
-    const row = document.createElement('div');
-    row.classList.add('gridRows');
-    board.appendChild(row);
+  const playerOne = new Player();
+  const playerTwo = new Player();
 
-    for (let j=0;j<10;j++) {
-      const cell = document.createElement('div');
-      cell.classList.add('gridCells');
-      cell.id = [j + 1,10 - i];
-      row.appendChild(cell);
-    } 
-    board.appendChild(row);
+  const playerOneBoard = document.querySelectorAll('#boardOne, .boardCells');
+  const playerTwoBoard = document.querySelectorAll('#boardTwo, .boardCells');
+
+  let currentPlayer = playerOne;
+  let currentBoard = playerOneBoard;
+
+  function switchPlayer() {
+    if (currentPlayer === playerOne) {
+      currentPlayer === playerTwo;
+      currentBoard === playerTwoBoard;
+    } else {
+      currentPlayer === playerOne;
+      currentBoard === playerOneBoard;
+    }
   }
+
+
+
+
 }
 
-function loadShips(currentPlayer) {
+function playerShips(currentPlayer) {
 
-  function divImages(image, id) {
-    const shipContainer = document.getElementById('shipsContainer');
-    const boardOne = document.getElementById('gameBoardOne');
-    const boardTwo = document.getElementById('gameBoardTwo');
-    let shipElement = document.createElement('div');
-    const img = document.createElement('img');
-    img.src = image;
-    shipElement.classList.add('shipPNGs');
-    shipElement.id = id;
-    shipElement.appendChild(img);
+  function loadAllShips() {
+    function loadShips(image, id) {
+      const shipContainer = document.getElementById('shipsContainer');
+      let shipElement = document.createElement('div');
+      const img = document.createElement('img');
+      img.src = image;
+      shipElement.classList.add('shipPNGs');
+      shipElement.id = id;
+      shipElement.appendChild(img);
 
-    shipContainer.appendChild(shipElement);
-    setDragDrop().setDraggable(shipElement);
-  }
-
-  function setDragDrop() {
-  // enable draggables to be dropped into this
-  interact('.dropzone').dropzone({
-    // only accept elements matching this CSS selector
-    accept: '#yes-drop',
-    // Require a 75% element overlap for a drop to be possible
-    overlap: 0.75,
-
-    // listen for drop related events:
-
-    ondropactivate: function (event) {
-      // add active dropzone feedback
-      event.target.classList.add('drop-active')
-    },
-    ondragenter: function (event) {
-      var draggableElement = event.relatedTarget
-      var dropzoneElement = event.target
-
-      // feedback the possibility of a drop
-      dropzoneElement.classList.add('drop-target')
-      draggableElement.classList.add('can-drop')
-      draggableElement.textContent = 'Dragged in'
-    },
-    ondragleave: function (event) {
-      // remove the drop feedback style
-      event.target.classList.remove('drop-target')
-      event.relatedTarget.classList.remove('can-drop')
-      event.relatedTarget.textContent = 'Dragged out'
-    },
-    ondrop: function (event) {
-      event.relatedTarget.textContent = 'Dropped'
-    },
-    ondropdeactivate: function (event) {
-      // remove active dropzone feedback
-      event.target.classList.remove('drop-active')
-      event.target.classList.remove('drop-target')
+      shipContainer.appendChild(shipElement);
     }
-  })
+    loadShips(Carrier,'carrier');
+    loadShips(BattleShip,'battleship');
+    loadShips(Cruiser,'cruiser');
+    loadShips(Submarine,'submarine');
+    loadShips(Destroyer,'destroyer');
 
-  interact('.drag-drop')
-    .draggable({
-      inertia: true,
-      modifiers: [
-        interact.modifiers.restrictRect({
-          restriction: 'parent',
-          endOnly: true
-        })
-      ],
-      autoScroll: true,
-      // dragMoveListener from the dragging demo above
-      listeners: { move: dragMoveListener }
-    })
+    const allShips = document.querySelectorAll('shipPNGs');
   }
+  
 
 
-  divImages(Carrier,'carrier');
-  divImages(BattleShip,'battleship');
-  divImages(Cruiser,'cruiser');
-  divImages(Submarine,'submarine');
-  divImages(Destroyer,'destroyer');
+
 }
   function getCoordinates() {
 
