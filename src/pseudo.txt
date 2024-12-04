@@ -69,8 +69,16 @@ Pseudo (dom.js)
     3ba. drop event will place players ships, if function returns true.
     Else if false, prevent drop.
 
+<<<<<<< Updated upstream
     3bc. if all ships are placed succesfully, switch to place other players,
     else start gameplay
+=======
+	1. playerShips will have loadAllShips for each player to place ships,
+	
+	2. Drag and Drop logic added to pass the ships and coordinates to player
+	ship objects
+
+>>>>>>> Stashed changes
 
 4. gamePlay will playout the game, switching players turns, while using
 attack function from ship obj that has logic for if player wins. 

@@ -123,6 +123,7 @@ function loadShips(currentPlayer) {
   }
 
   function draggableImages() {
+
     function setDraggable(ship) {
       ship.draggable = 'true';
       ship.addEventListener('dragstart', function(event) {
@@ -141,61 +142,61 @@ function loadShips(currentPlayer) {
       if (currentPlayer === 'playerOne') {
         const selectAllCells = boardOneCells;
         const selectAllRows = boardOneRows;
-        dropListenerEvents(selectAllCells,selectAllRows);
+        dropListenerEvents(selectAllCells,selectAllRows,ship);
       } else if (currentPlayer === 'playerTwo') {
         const selectAllCells = boardTwoCells;
         const selectAllRows = boardTwoRows;
-        dropListenerEvents(selectAllCells,selectAllRows);
+        dropListenerEvents(selectAllCells,selectAllRows,ship);
       }
 
-      function dropListenerEvents(cells,rows) {
+
+      function handleCellDragOver(event) {
+        event.preventDefault();
+        event.target.classList.add('gridCellsDragOver');
+      }
+
+      function handleCellDragLeave(event) {
+        event.preventDefault();
+        event.target.classList.remove('gridCellsDragOver');
+      }
+
+      function handleRowDragOver(event) {
+        event.preventDefault();
+      }
+
+      function handleRowDrop(event, ship) {
+        event.preventDefault();
+
+        ship.style.position = 'absolute'; 
+        event.target.append(ship);
+
+        ship.draggable = false;
+      }
+
+      function dropListenerEvents(cells, rows, ship) {
 
         cells.forEach(cell => {
-          cell.addEventListener('dragover', function(event) {
-            event.preventDefault();
-            cell.classList.add('gridCellsDragOver');
-          })
-  
-          cell.addEventListener('dragleave', function(event) {
-            event.preventDefault();
-            cell.classList.remove('gridCellsDragOver');
-          })
-        })
-  
-        rows.forEach(row => {
-          row.addEventListener('dragover', function(event) {
-            event.preventDefault();
-          })
-        })
-  
-        rows.forEach(row => {
-          row.addEventListener('drop', function(event) {
-            ship.style.position = 'absolute'; 
-            row.append(ship);
+          cell.addEventListener('dragover', handleCellDragOver);
+          cell.addEventListener('dragleave', handleCellDragLeave);
+        });
 
-            ship.draggable = false;
-
-            ship.removeEventListener('dragstart', handleDragStart);
-          })
-        })
-        function handleDragStart(event) {
-          console.log(event);
-          setDrop(ship);
-        }
+        rows.forEach(row => {
+          row.addEventListener('dragover', handleRowDragOver);
+          row.addEventListener('drop', event => handleRowDrop(event, ship));
+        });
       }
 
-      
-      function highlightCells(cellID, shipLength) {
-
-      }
+    function highlightCells(cellID, shipLength) {
 
     }
+
+  }
 
     return {
       setDraggable:setDraggable,
     }
   }
-
+  //adding Drag and Drop to the pngs with these immediate function calls
   divImages(Carrier,'carrier');
   divImages(BattleShip,'battleship');
   divImages(Cruiser,'cruiser');
