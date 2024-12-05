@@ -119,18 +119,18 @@ function loadShips(currentPlayer) {
     shipElement.appendChild(img);
 
     shipContainer.appendChild(shipElement);
-    draggableImages().setDraggable(shipElement);
+    draggableImages();
   }
 
   function draggableImages() {
 
-    function setDraggable(ship) {
-      ship.draggable = 'true';
-      ship.addEventListener('dragstart', function(event) {
-        console.log(event);
-        setDrop(ship);
-      })
+    const selectAllShips = document.querySelectorAll('.shipPNGs');
+    selectAllShips.forEach((ship) => ship.addEventListener('dragstart', dragStart))
+  
+    function dragStart(e) {
+      console.log(e.target)
     }
+
 
     function setDrop(ship) {
       const boardOneCells = document.querySelectorAll('#gameBoardOne .gridCells');
@@ -167,10 +167,13 @@ function loadShips(currentPlayer) {
       function handleRowDrop(event, ship) {
         event.preventDefault();
 
-        ship.style.position = 'absolute'; 
+        ship.classList.remove('shipPNGs');
+        ship.classList.add('shipPNGsAlt');
+
         event.target.append(ship);
 
         ship.draggable = false;
+        
       }
 
       function dropListenerEvents(cells, rows, ship) {
@@ -192,10 +195,7 @@ function loadShips(currentPlayer) {
 
   }
 
-    return {
-      setDraggable:setDraggable,
-    }
-  }
+}
   //adding Drag and Drop to the pngs with these immediate function calls
   divImages(Carrier,'carrier');
   divImages(BattleShip,'battleship');
