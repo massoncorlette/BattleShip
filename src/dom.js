@@ -102,7 +102,7 @@ function loadGame(gameMode) {
   main.appendChild(shipsContainer);
   loadBoard(board);
   loadBoard(boardTwo);
-
+  gamePlay();
   getCoordinates();
 }
 
@@ -127,7 +127,7 @@ function gamePlay(gameMode) {
     }
   }
 
-
+  playerShips().loadAllShips();
 
 
 }
@@ -144,21 +144,96 @@ function playerShips(currentPlayer) {
       shipElement.id = id;
       shipElement.appendChild(img);
 
-      shipContainer.appendChild(shipElement);
+    shipContainer.appendChild(shipElement);
+    draggableImages();
+  }
+
+  function draggableImages() {
+
+    const selectAllShips = document.querySelectorAll('.shipPNGs');
+    selectAllShips.forEach((ship) => ship.addEventListener('dragstart', dragStart))
+  
+    function dragStart(e) {
+      console.log(e.target)
     }
+
+
+    function setDrop(ship) {
+      const boardOneCells = document.querySelectorAll('#gameBoardOne .gridCells');
+      const boardTwoCells = document.querySelectorAll('#gameBoardTwo .gridCells');
+
+      const boardOneRows = document.querySelectorAll('#gameBoardOne .gridRows');
+      const boardTwoRows = document.querySelectorAll('#gameBoardOne .gridRows');
+
+      if (currentPlayer === 'playerOne') {
+        const selectAllCells = boardOneCells;
+        const selectAllRows = boardOneRows;
+        dropListenerEvents(selectAllCells,selectAllRows,ship);
+      } else if (currentPlayer === 'playerTwo') {
+        const selectAllCells = boardTwoCells;
+        const selectAllRows = boardTwoRows;
+        dropListenerEvents(selectAllCells,selectAllRows,ship);
+      }
+
+
+      function handleCellDragOver(event) {
+        event.preventDefault();
+        event.target.classList.add('gridCellsDragOver');
+      }
+
+      function handleCellDragLeave(event) {
+        event.preventDefault();
+        event.target.classList.remove('gridCellsDragOver');
+      }
+
+      function handleRowDragOver(event) {
+        event.preventDefault();
+      }
+
+      function handleRowDrop(event, ship) {
+        event.preventDefault();
+
+        ship.classList.remove('shipPNGs');
+        ship.classList.add('shipPNGsAlt');
+
+        event.target.append(ship);
+
+        ship.draggable = false;
+        
+      }
+
+      function dropListenerEvents(cells, rows, ship) {
+
+        cells.forEach(cell => {
+          cell.addEventListener('dragover', handleCellDragOver);
+          cell.addEventListener('dragleave', handleCellDragLeave);
+        });
+
+        rows.forEach(row => {
+          row.addEventListener('dragover', handleRowDragOver);
+          row.addEventListener('drop', event => handleRowDrop(event, ship));
+        });
+      }
+    };
+    function highlightCells(cellID, shipLength) {
+
+    }
+  };
+
     loadShips(Carrier,'carrier');
     loadShips(BattleShip,'battleship');
     loadShips(Cruiser,'cruiser');
     loadShips(Submarine,'submarine');
     loadShips(Destroyer,'destroyer');
-
-    const allShips = document.querySelectorAll('shipPNGs');
+    }
+  return {
+    loadAllShips:loadAllShips,
   }
-  
-
-
-
 }
+
+
+  //adding Drag and Drop to the pngs with these immediate function calls
+
   function getCoordinates() {
 
     let cells = document.querySelectorAll('.gridCells');

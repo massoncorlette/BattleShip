@@ -56,19 +56,35 @@ Pseudo (dom.js)
 
 1. loadScreen from index.js 
 
-2. based upon mode, loadGame (loading boards )
+2. based upon mode loadGame (loading boards and ships)
 
-3. gamePlay will play game based upon gameMode (*make 2p for now)
+  2b. loadPlayers will make two players objects, use function to switch
+  players, maybe using global or hoisting a variable for current player?
 
-  1. using playerShips load in 1p ships to place in gameBoard one, 
-  once all placed load in for 2p.
+3. loadShips will setup ships drag and drop
 
-  2. startGame once both players place ships
+  3a. divImages loading in the ships, adding draggableProperties
+  giving each element with shipPNGs id's that can pass into players ship
+  object properties?
 
-  3. using playerShips and ship obj methods, players take turns attacking
-  until a player wins
+  3b. setDrop will take droppable ship and add Drag and Drop eventListener
 
+    3ba. drop event will place players ships, if function returns true.
+    Else if false, prevent drop.
 
+<<<<<<< Updated upstream
+    3bc. if all ships are placed succesfully, switch to place other players,
+    else start gameplay
+=======
+	1. playerShips will have loadAllShips for each player to place ships,
+	
+	2. Drag and Drop logic added to pass the ships and coordinates to player
+	ship objects
+
+>>>>>>> Stashed changes
+
+4. gamePlay will playout the game, switching players turns, while using
+attack function from ship obj that has logic for if player wins. 
 
 
 - Try to follow the conventional Git command standards
