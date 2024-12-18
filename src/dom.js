@@ -160,6 +160,10 @@ function loadShips(currentPlayer) {
             event.preventDefault();
             cell.classList.remove('gridCellsDragOver');
           })
+
+          cell.addEventListener('drop', function(event) {
+            console.log(cell.id);
+          })
         })
   
         rows.forEach(row => {
@@ -168,16 +172,6 @@ function loadShips(currentPlayer) {
           })
         })
   
-        rows.forEach(row => {
-          row.addEventListener('drop', function(event) {
-            ship.style.position = 'absolute'; 
-            row.append(ship);
-
-            ship.draggable = false;
-
-            ship.removeEventListener('dragstart', handleDragStart);
-          })
-        })
         function handleDragStart(event) {
           console.log(event);
           setDrop(ship);
