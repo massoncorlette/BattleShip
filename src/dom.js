@@ -107,7 +107,7 @@ function loadBoard(board) {
 
 function loadShips(currentPlayer) {
 
-  function divImages(image, id) {
+  function loadImages(image, id) {
     const shipContainer = document.getElementById('shipsContainer');
     const boardOne = document.getElementById('gameBoardOne');
     const boardTwo = document.getElementById('gameBoardTwo');
@@ -124,7 +124,6 @@ function loadShips(currentPlayer) {
 
   function draggableImages() {
     function setDraggable(ship) {
-      ship.draggable = 'true';
       ship.addEventListener('dragstart', function(event) {
         console.log(event);
         setDrop(ship);
@@ -141,17 +140,17 @@ function loadShips(currentPlayer) {
       if (currentPlayer === 'playerOne') {
         const selectAllCells = boardOneCells;
         const selectAllRows = boardOneRows;
-        dropListenerEvents(selectAllCells,selectAllRows);
+        dropListenerEvents(selectAllCells,selectAllRows,ship);
       } else if (currentPlayer === 'playerTwo') {
         const selectAllCells = boardTwoCells;
         const selectAllRows = boardTwoRows;
-        dropListenerEvents(selectAllCells,selectAllRows);
+        dropListenerEvents(selectAllCells,selectAllRows,ship);
       }
 
-      function dropListenerEvents(cells,rows) {
+      function dropListenerEvents(cells,rows,ship) {
 
         cells.forEach(cell => {
-          cell.addEventListener('dragover', function(event) {
+          cell.addEventListener('dragover', function(event) { //function color overlaycells form ship length
             event.preventDefault();
             cell.classList.add('gridCellsDragOver');
           })
@@ -161,8 +160,10 @@ function loadShips(currentPlayer) {
             cell.classList.remove('gridCellsDragOver');
           })
 
-          cell.addEventListener('drop', function(event) {
+          cell.addEventListener('drop', function(event) { //function color overlaycells form ship length
+            event.preventDefault();
             console.log(cell.id);
+            console.log(ship.id);
           })
         })
   
@@ -172,10 +173,6 @@ function loadShips(currentPlayer) {
           })
         })
   
-        function handleDragStart(event) {
-          console.log(event);
-          setDrop(ship);
-        }
       }
 
       
@@ -190,11 +187,11 @@ function loadShips(currentPlayer) {
     }
   }
 
-  divImages(Carrier,'carrier');
-  divImages(BattleShip,'battleship');
-  divImages(Cruiser,'cruiser');
-  divImages(Submarine,'submarine');
-  divImages(Destroyer,'destroyer');
+  loadImages(Carrier,'carrier');
+  loadImages(BattleShip,'battleship');
+  loadImages(Cruiser,'cruiser');
+  loadImages(Submarine,'submarine');
+  loadImages(Destroyer,'destroyer');
 }
   function getCoordinates() {
 
