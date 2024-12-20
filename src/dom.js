@@ -98,7 +98,7 @@ function loadBoard(board) {
     for (let j=0;j<10;j++) {
       const cell = document.createElement('div');
       cell.classList.add('gridCells');
-      cell.id = [j + 1,10 - i];
+      cell.id = `[${j + 1}][${10 - i}]`;
       row.appendChild(cell);
     } 
     board.appendChild(row);
@@ -152,12 +152,12 @@ function loadShips(currentPlayer) {
         cells.forEach(cell => {
           cell.addEventListener('dragover', function(event) { //function color overlaycells form ship length
             event.preventDefault();
-            cell.classList.add('gridCellsDragOver');
+            highlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), 5 )
           })
   
           cell.addEventListener('dragleave', function(event) {
             event.preventDefault();
-            cell.classList.remove('gridCellsDragOver');
+            removeHighlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), 5);
           })
 
           cell.addEventListener('drop', function(event) { //function color overlaycells form ship length
@@ -167,19 +167,26 @@ function loadShips(currentPlayer) {
           })
         })
   
-        rows.forEach(row => {
-          row.addEventListener('dragover', function(event) {
-            event.preventDefault();
-          })
-        })
-  
       }
 
       
-      function highlightCells(cellID, shipLength) {
-
+      function highlightCells(cellColumnID, cellRowID, shipLength) {
+        for (let i = 1; i < shipLength; i++) {  
+          const currentColumn = parseInt(cellColumnID, 10) + i;
+          const element = document.getElementById(`[${currentColumn}][${cellRowID}]`);
+          element.classList.add('gridCellsDragOver');
+        }
       }
 
+      function removeHighlightCells(cellColumnID, cellRowID, shipLength) {
+        for (let i = 1; i < shipLength; i++) {  
+          const currentColumn = parseInt(cellColumnID, 10) + i;
+          const element = document.getElementById(`[${currentColumn}][${cellRowID}]`);
+          if (element) {
+            element.classList.remove('gridCellsDragOver');
+          }
+        }
+      }
     }
 
     return {

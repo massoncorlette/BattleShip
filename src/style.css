@@ -194,13 +194,11 @@ Button:hover {
   grid-column: span 10;
   grid-template-columns: repeat(10,1fr);
   position: relative;
-  z-index: 1;
 }
 
 .gridCells {
   border: solid var(--secondary-color) 1px;
   position: relative;
-  z-index: 0;
 }
 
 .gridCellsDragOver {
