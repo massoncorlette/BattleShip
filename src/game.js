@@ -18,16 +18,6 @@ export async function startGame() {
   commodoreTwo = new Player();
 }
 
-export function placeAllShips(playersBoard) {
-  
-  const direction = 'X';
-
-  playersBoard.ships.forEach((ship) => {
-
-    shipPlacements(playersBoard,ship.shipType,ship.length,direction)
-  })
-}
-
 export function shipPlacements(playersBoard,shipType,length,direction,coordinates) {
 
   if (checkShipPlacement(playersBoard.listOfShipsCoordinates,length,direction,coordinates) === false) {

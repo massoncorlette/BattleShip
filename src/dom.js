@@ -83,8 +83,8 @@ function loadGame(gameMode) {
   main.appendChild(shipsContainer);
   loadBoard(board);
   loadBoard(boardTwo);
-  loadShips('playerOne');
   startGame();
+  loadShips('playerOne',commodoreOne);
   getCoordinates();
 }
 
@@ -105,7 +105,8 @@ function loadBoard(board) {
   }
 }
 
-function loadShips(currentPlayer) {
+function loadShips(currentPlayer, playerObj) {
+  const playerBoard = playerObj.playersBoard;
 
   function loadImages(image, id) {
     const shipContainer = document.getElementById('shipsContainer');
@@ -125,7 +126,6 @@ function loadShips(currentPlayer) {
   function draggableImages() {
     function setDraggable(ship) {
       ship.addEventListener('dragstart', function(event) {
-        console.log(event);
         setDrop(ship);
       })
     }
@@ -172,20 +172,30 @@ function loadShips(currentPlayer) {
       
       function highlightCells(cellColumnID, cellRowID, shipLength) {
         for (let i = 1; i < shipLength; i++) {  
-          const currentColumn = parseInt(cellColumnID, 10) + i;
+          const currentColumn = parseInt(cellColumnID, 10) + i - 1;
           const element = document.getElementById(`[${currentColumn}][${cellRowID}]`);
-          element.classList.add('gridCellsDragOver');
+          if (element) {
+            element.classList.add('gridCellsDragOver');
+          }
         }
       }
 
       function removeHighlightCells(cellColumnID, cellRowID, shipLength) {
         for (let i = 1; i < shipLength; i++) {  
-          const currentColumn = parseInt(cellColumnID, 10) + i;
+          const currentColumn = parseInt(cellColumnID, 10) + i - 1;
           const element = document.getElementById(`[${currentColumn}][${cellRowID}]`);
           if (element) {
             element.classList.remove('gridCellsDragOver');
           }
         }
+      }
+
+      function placeAndMakeShip(shipType) {
+        let shipValidity = null;
+        if (shipType === "carrier") {
+          shipValidity = 
+        }
+
       }
     }
 
