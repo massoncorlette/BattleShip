@@ -1,6 +1,6 @@
 // render objects in DOM here
 
-import { startGame,commodoreOne,commodoreTwo } from "./game";
+import { startGame,shipPlacements,commodoreOne,commodoreTwo } from "./game";
 import { Player } from "./gameObjects";
 
 import Carrier from '../images/Carrier.png';
@@ -108,7 +108,7 @@ function loadBoard(board) {
 function loadShips(currentPlayer, playerObj) {
   const playerBoard = playerObj.playersBoard;
 
-  function loadImages(image, id) {
+  function loadImages(image, id, length) {
     const shipContainer = document.getElementById('shipsContainer');
     const boardOne = document.getElementById('gameBoardOne');
     const boardTwo = document.getElementById('gameBoardTwo');
@@ -120,17 +120,17 @@ function loadShips(currentPlayer, playerObj) {
     shipElement.appendChild(img);
 
     shipContainer.appendChild(shipElement);
-    draggableImages().setDraggable(shipElement);
+    draggableImages().setDraggable(shipElement,length);
   }
 
   function draggableImages() {
-    function setDraggable(ship) {
+    function setDraggable(ship,length) {
       ship.addEventListener('dragstart', function(event) {
-        setDrop(ship);
+        setDrop(ship,length);
       })
     }
 
-    function setDrop(ship) {
+    function setDrop(ship,length) {
       const boardOneCells = document.querySelectorAll('#gameBoardOne .gridCells');
       const boardTwoCells = document.querySelectorAll('#gameBoardTwo .gridCells');
 
@@ -150,32 +150,55 @@ function loadShips(currentPlayer, playerObj) {
       function dropListenerEvents(cells,rows,ship) {
 
         cells.forEach(cell => {
-          cell.addEventListener('dragover', function(event) { //function color overlaycells form ship length
+
+          cell.addEventListener('dragenter', function(event) { //function color overlaycells form ship length
             event.preventDefault();
-            highlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), 5 )
+            let coordinates = [parseInt(cell.id[1]), parseInt(cell.id[4])];
+            let shipDetails = shipPlacementValidity(ship.id,coordinates,length);
+
+            if (shipDetails.shipValidity === true) {
+              highlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), length )
+            } else if (shipDetails.shipValidity === false) {
+              highlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), length, false )
+            }
+          })
+
+          cell.addEventListener('dragover', function(event) {
+            event.preventDefault();
           })
   
           cell.addEventListener('dragleave', function(event) {
             event.preventDefault();
-            removeHighlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), 5);
+            removeHighlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), length);
           })
 
           cell.addEventListener('drop', function(event) { //function color overlaycells form ship length
             event.preventDefault();
-            console.log(cell.id);
-            console.log(ship.id);
-          })
-        })
-  
-      }
+            let coordinates = [parseInt(cell.id[1]), parseInt(cell.id[4])];
+            let shipDetails = shipPlacementValidity(ship.id,coordinates,length);
 
+            if (shipDetails.shipValidity) {
+              playerBoard.placeShip(ship.id,shipDetails.length,"X",coordinates);
+              highlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), length );
+            } else {
+              removeHighlightCells(parseInt(cell.id[1]), parseInt(cell.id[4]), length);
+              console.log("false");
+            }
+
+          });
+        });
+  
+      };
       
-      function highlightCells(cellColumnID, cellRowID, shipLength) {
+      function highlightCells(cellColumnID, cellRowID, shipLength, valid) {
         for (let i = 1; i < shipLength; i++) {  
           const currentColumn = parseInt(cellColumnID, 10) + i - 1;
           const element = document.getElementById(`[${currentColumn}][${cellRowID}]`);
           if (element) {
             element.classList.add('gridCellsDragOver');
+            if (valid === false) {
+              element.classList.add('gridCellsInvalid');
+            }
           }
         }
       }
@@ -186,17 +209,41 @@ function loadShips(currentPlayer, playerObj) {
           const element = document.getElementById(`[${currentColumn}][${cellRowID}]`);
           if (element) {
             element.classList.remove('gridCellsDragOver');
+
+            if(element.classList.contains('gridCellsInvalid')) {
+              element.classList.remove('gridCellsInvalid')
+            }
           }
         }
       }
 
-      function placeAndMakeShip(shipType) {
+      // using shipPlacements from game.js to check ship validity for player gameboard obj
+      function shipPlacementValidity(shipType,coordinates) {
         let shipValidity = null;
         if (shipType === "carrier") {
-          shipValidity = 
+          shipValidity = shipPlacements(playerBoard,"carrier",length,"X",coordinates);
         }
 
+        if (shipType === "battleship") {
+          shipValidity = shipPlacements(playerBoard,"battleship",length,"x",coordinates);
+        }
+
+        if (shipType === "cruiser") {
+          shipValidity = shipPlacements(playerBoard,"cruiser",length,"x",coordinates);
+        }
+
+        if (shipType === "submarine") {
+          shipValidity = shipPlacements(playerBoard,"submarine",length,"x",coordinates);
+        }
+
+        if (shipType === "destroyer") {
+          shipValidity = shipPlacements(playerBoard,"destroyer",length,"x",coordinates);
+        }
+        return {
+          shipValidity:shipValidity,
+        }
       }
+      console.log(playerObj);
     }
 
     return {
@@ -204,11 +251,11 @@ function loadShips(currentPlayer, playerObj) {
     }
   }
 
-  loadImages(Carrier,'carrier');
-  loadImages(BattleShip,'battleship');
-  loadImages(Cruiser,'cruiser');
-  loadImages(Submarine,'submarine');
-  loadImages(Destroyer,'destroyer');
+  loadImages(Carrier,'carrier', 5);
+  loadImages(BattleShip,'battleship', 4);
+  loadImages(Cruiser,'cruiser', 3);
+  loadImages(Submarine,'submarine', 3);
+  loadImages(Destroyer,'destroyer', 2);
 }
   function getCoordinates() {
 

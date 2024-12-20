@@ -205,8 +205,11 @@ Button:hover {
   background-color: var(--secondary-color);
 }
 
+.gridCellsInvalid {
+  background-color: red;
+}
+
 .gridCells:hover {
-  background-color: var(--secondary-color);
   cursor: pointer;
 }
 
